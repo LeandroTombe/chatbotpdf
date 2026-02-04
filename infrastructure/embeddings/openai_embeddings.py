@@ -1,0 +1,2 @@
+# OpenAI embeddings implementation
+pass
