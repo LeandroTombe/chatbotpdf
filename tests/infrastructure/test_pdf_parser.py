@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import Mock, patch, MagicMock
-from pdf_loader import PDFLoader
+from infrastructure.pdf.pdf_parser import PDFLoader
 
 
 class TestPDFLoader:
@@ -17,7 +17,7 @@ class TestPDFLoader:
         loader = PDFLoader()
         mock_documents = [Mock(page_content="Test content", metadata={"page": 1})]
         
-        with patch('pdf_loader.PyPDFLoader') as mock_pdf_loader:
+        with patch('infrastructure.pdf.pdf_parser.PyPDFLoader') as mock_pdf_loader:
             mock_loader_instance = Mock()
             mock_loader_instance.load.return_value = mock_documents
             mock_pdf_loader.return_value = mock_loader_instance
@@ -33,7 +33,7 @@ class TestPDFLoader:
         """Test PDF loading with non-existent file"""
         loader = PDFLoader()
         
-        with patch('pdf_loader.PyPDFLoader') as mock_pdf_loader:
+        with patch('infrastructure.pdf.pdf_parser.PyPDFLoader') as mock_pdf_loader:
             mock_pdf_loader.side_effect = FileNotFoundError("File not found")
             
             result = loader.load_pdf("nonexistent.pdf")
@@ -45,7 +45,7 @@ class TestPDFLoader:
         """Test PDF loading with general exception"""
         loader = PDFLoader()
         
-        with patch('pdf_loader.PyPDFLoader') as mock_pdf_loader:
+        with patch('infrastructure.pdf.pdf_parser.PyPDFLoader') as mock_pdf_loader:
             mock_pdf_loader.side_effect = Exception("Unexpected error")
             
             result = loader.load_pdf("corrupted.pdf")
@@ -57,7 +57,7 @@ class TestPDFLoader:
         """Test PDF loading with empty file path"""
         loader = PDFLoader()
         
-        with patch('pdf_loader.PyPDFLoader') as mock_pdf_loader:
+        with patch('infrastructure.pdf.pdf_parser.PyPDFLoader') as mock_pdf_loader:
             mock_pdf_loader.side_effect = ValueError("Invalid file path")
             
             result = loader.load_pdf("")
@@ -72,7 +72,7 @@ class TestPDFLoader:
             Mock(page_content="Page 2", metadata={"page": 2})
         ]
         
-        with patch('pdf_loader.PyPDFLoader') as mock_pdf_loader:
+        with patch('infrastructure.pdf.pdf_parser.PyPDFLoader') as mock_pdf_loader:
             mock_loader_instance = Mock()
             mock_loader_instance.load.return_value = mock_documents
             mock_pdf_loader.return_value = mock_loader_instance
@@ -98,7 +98,7 @@ class TestPDFLoader:
         first_docs = [Mock(page_content="First PDF")]
         second_docs = [Mock(page_content="Second PDF")]
         
-        with patch('pdf_loader.PyPDFLoader') as mock_pdf_loader:
+        with patch('infrastructure.pdf.pdf_parser.PyPDFLoader') as mock_pdf_loader:
             # First load
             mock_loader_1 = Mock()
             mock_loader_1.load.return_value = first_docs
