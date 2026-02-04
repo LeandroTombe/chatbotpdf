@@ -1,0 +1,10 @@
+
+services:
+  chatbot-pdf:
+    build: .
+    container_name: chatbot-pdf
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python pdf_loader.py
