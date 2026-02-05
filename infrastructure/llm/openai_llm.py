@@ -1,2 +1,0 @@
-# OpenAI LLM implementation
-pass
