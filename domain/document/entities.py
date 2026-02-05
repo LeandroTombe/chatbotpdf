@@ -1,2 +1,0 @@
-# Document, Chunk entities
-pass
